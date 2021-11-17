@@ -1,0 +1,23 @@
+resource "azurerm_dns_zone" "diazcesar_zone" {
+
+  name = "diazcesar.com"
+
+
+  resource_group_name = "diaz-az-rg"
+  tags                = {}
+
+  soa_record {
+    email       = "cesar.cesardiaz.com"
+    expire_time = 2419200
+
+    host_name     = "ns1-35.azure-dns.com."
+    minimum_ttl   = 300
+    refresh_time  = 3600
+    retry_time    = 300
+    serial_number = 1
+    tags          = {}
+    ttl           = 3600
+  }
+
+  timeouts {}
+}
