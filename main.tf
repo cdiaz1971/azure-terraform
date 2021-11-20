@@ -46,7 +46,7 @@ resource "azurerm_network_interface" "diaz-win-01-nic" {
   ip_configuration {
     name                 = "ipconfig1"
     primary              = true
-    subnet_id            = azurerm_subnet.diaz-private-01.id
+    subnet_id            = azurerm_subnet.diaz-private-02.id
     public_ip_address_id = azurerm_public_ip.diaz-public_ip-01.id
 
     private_ip_address_allocation = "Dynamic"
@@ -113,6 +113,6 @@ resource "azurerm_windows_virtual_machine" "diaz-win-01" {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
     name                 = "diaz-win-01-cdrive"
-    #disk_size_gb         = 127
+
   }
 }
