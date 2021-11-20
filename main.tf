@@ -15,13 +15,18 @@ resource "azurerm_virtual_network" "diaz-az-vnet" {
 
 
 }
-resource "azurerm_subnet" "diaz-private" {
-  name                 = "diaz-private_sn"
+resource "azurerm_subnet" "diaz-private-01" {
+  name                 = "diaz-private_sn-01"
   resource_group_name  = azurerm_resource_group.diaz-az.name
   virtual_network_name = azurerm_virtual_network.diaz-az-vnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }
-
+resource "azurerm_subnet" "diaz-private-02" {
+  name                 = "diaz-private_sn-02"
+  resource_group_name  = azurerm_resource_group.diaz-az.name
+  virtual_network_name = azurerm_virtual_network.diaz-az-vnet.name
+  address_prefixes     = ["10.0.3.0/24"]
+}
 
 
 
@@ -41,7 +46,7 @@ resource "azurerm_network_interface" "diaz-win-01-nic" {
   ip_configuration {
     name                 = "ipconfig1"
     primary              = true
-    subnet_id            = azurerm_subnet.diaz-private.id
+    subnet_id            = azurerm_subnet.diaz-private-01.id
     public_ip_address_id = azurerm_public_ip.diaz-public_ip-01.id
 
     private_ip_address_allocation = "Dynamic"
@@ -100,7 +105,7 @@ resource "azurerm_windows_virtual_machine" "diaz-win-01" {
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
-    sku       = "2019-Datacenter"
+    sku       = "2019-Datacenter-smalldisk"
     version   = "latest"
   }
 
